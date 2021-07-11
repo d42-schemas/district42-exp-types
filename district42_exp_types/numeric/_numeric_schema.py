@@ -46,7 +46,7 @@ class NumericSchema(Schema[NumericProps]):
         try:
             int(value)
         except (TypeError, ValueError) as e:
-            raise DeclarationError(str(e))
+            raise DeclarationError(str(e)) from None
 
         return self.__class__(self.props.update(value=value))
 
