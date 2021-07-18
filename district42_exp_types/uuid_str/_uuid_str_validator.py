@@ -1,25 +1,36 @@
-from typing import Any
+from typing import Any, cast
 from uuid import UUID
 
 from niltype import Nil, Nilable
 from th import PathHolder
-from valera import ValidationResult, Validator
+from valera import Formatter, ValidationResult, Validator
 from valera.errors import TypeValidationError, ValidationError, ValueValidationError
 
 from ._uuid_str_schema import UUIDStrSchema
 
-__all__ = ("UUIDStrValidator", "StrCaseValidationError",)
+__all__ = ("UUIDStrValidator", "StrCaseValidationError", "StrCaseFormatter",)
 
 
 class StrCaseValidationError(ValidationError):
     def __init__(self, path: PathHolder, actual_value: str, expected_case: str) -> None:
-        self._path = path
-        self._actual_value = actual_value
-        self._expected_case = expected_case
+        self.path = path
+        self.actual_value = actual_value
+        self.expected_case = expected_case
+
+    def format(self, formatter: Formatter) -> str:
+        return cast(str, formatter.format_str_case_error(self))
 
     def __repr__(self) -> str:
-        return (f"{self.__class__.__name__}({self._path!r}, {self._actual_value!r}, "
-                f"{self._expected_case!r})")
+        return (f"{self.__class__.__name__}({self.path!r}, {self.actual_value!r}, "
+                f"{self.expected_case!r})")
+
+
+class StrCaseFormatter(Formatter, extend=True):
+    def format_str_case_error(self, error: StrCaseValidationError) -> str:
+        actual_type = self._get_type(error.actual_value)
+        formatted_path = self._at_path(error.path)
+        return (f"Value {actual_type}{formatted_path} "
+                f"must be in {error.expected_case} case, but {error.actual_value!r} given")
 
 
 class UUIDStrValidator(Validator, extend=True):
