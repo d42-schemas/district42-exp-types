@@ -27,3 +27,25 @@ def test_uuid_str_value_representation():
 
     with then:
         assert res == f"schema.uuid_str({value!r})"
+
+
+def test_uuid_str_lowercase_representation():
+    with given:
+        sch = schema_uuid_str.lowercase()
+
+    with when:
+        res = represent(sch)
+
+    with then:
+        assert res == "schema.uuid_str.lowercase()"
+
+
+def test_uuid_str_uppercase_representation():
+    with given:
+        sch = schema_uuid_str.uppercase()
+
+    with when:
+        res = represent(sch)
+
+    with then:
+        assert res == "schema.uuid_str.uppercase()"

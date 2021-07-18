@@ -19,6 +19,14 @@ class UUIDStrProps(Props):
     def value(self) -> Nilable[str]:
         return self.get("value")
 
+    @property
+    def is_lowercase(self) -> Nilable[bool]:
+        return self.get("is_lowercase")
+
+    @property
+    def is_uppercase(self) -> Nilable[bool]:
+        return self.get("is_uppercase")
+
 
 class UUIDStrSchema(Schema[UUIDStrProps]):
     def __accept__(self, visitor: SchemaVisitor[ReturnType], **kwargs: Any) -> ReturnType:
@@ -37,3 +45,21 @@ class UUIDStrSchema(Schema[UUIDStrProps]):
             raise make_already_declared_error(self)
 
         return self.__class__(self.props.update(value=value))
+
+    def lowercase(self) -> "UUIDStrSchema":
+        if (self.props.value is not Nil) and not (self.props.value.islower()):
+            raise make_already_declared_error(self)
+
+        if (self.props.is_lowercase is not Nil) or (self.props.is_uppercase is not Nil):
+            raise make_already_declared_error(self)
+
+        return self.__class__(self.props.update(is_lowercase=True))
+
+    def uppercase(self) -> "UUIDStrSchema":
+        if (self.props.value is not Nil) and (not self.props.value.isupper()):
+            raise make_already_declared_error(self)
+
+        if (self.props.is_uppercase is not Nil) or (self.props.is_lowercase is not Nil):
+            raise make_already_declared_error(self)
+
+        return self.__class__(self.props.update(is_uppercase=True))

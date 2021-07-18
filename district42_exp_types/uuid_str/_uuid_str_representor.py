@@ -15,4 +15,9 @@ class UUIDStrRepresentor(Representor, extend=True):
         if schema.props.value is not Nil:
             r += f"({schema.props.value!r})"
 
+        if schema.props.is_lowercase is not Nil:
+            r += ".lowercase()"
+        elif schema.props.is_uppercase is not Nil:
+            r += ".uppercase()"
+
         return r

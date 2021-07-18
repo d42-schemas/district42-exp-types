@@ -4,11 +4,22 @@ from uuid import UUID
 from niltype import Nil, Nilable
 from th import PathHolder
 from valera import ValidationResult, Validator
-from valera.errors import ValueValidationError
+from valera.errors import TypeValidationError, ValidationError, ValueValidationError
 
 from ._uuid_str_schema import UUIDStrSchema
 
-__all__ = ("UUIDStrValidator",)
+__all__ = ("UUIDStrValidator", "StrCaseValidationError",)
+
+
+class StrCaseValidationError(ValidationError):
+    def __init__(self, path: PathHolder, actual_value: str, expected_case: str) -> None:
+        self._path = path
+        self._actual_value = actual_value
+        self._expected_case = expected_case
+
+    def __repr__(self) -> str:
+        return (f"{self.__class__.__name__}({self._path!r}, {self._actual_value!r}, "
+                f"{self._expected_case!r})")
 
 
 class UUIDStrValidator(Validator, extend=True):
@@ -25,12 +36,25 @@ class UUIDStrValidator(Validator, extend=True):
         try:
             actual_value = UUID(value)
         except (TypeError, ValueError):
-            error = ValueValidationError(path, value, schema.props.value)
+            if schema.props.value is not Nil:
+                error = ValueValidationError(path, value, schema.props.value)
+            else:
+                error = TypeValidationError(path, value, UUID)
             return result.add_error(error)
 
         if schema.props.value is not Nil:
             if actual_value != UUID(schema.props.value):
                 error = ValueValidationError(path, value, schema.props.value)
+                return result.add_error(error)
+
+        if schema.props.is_lowercase is not Nil:
+            if not value.islower():
+                error = StrCaseValidationError(path, value, str.lower.__name__)
+                return result.add_error(error)
+
+        if schema.props.is_uppercase is not Nil:
+            if not value.isupper():
+                error = StrCaseValidationError(path, value, str.upper.__name__)
                 return result.add_error(error)
 
         return result

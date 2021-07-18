@@ -59,3 +59,81 @@ def test_uuid_str_already_declared_declaration_error():
     with then:
         assert exception.type is DeclarationError
         assert str(exception.value) == f"`schema.uuid_str({value!r})` is already declared"
+
+
+def test_uuid_str_lowercase_declaration():
+    with when:
+        sch = schema_uuid_str.lowercase()
+
+    with then:
+        assert sch.props.is_lowercase is True
+
+
+def test_uuid_str_lowercase_already_declared_declaration_error():
+    with given:
+        value = str(uuid4()).upper()
+
+    with when, raises(Exception) as exception:
+        schema_uuid_str(value).lowercase()
+
+    with then:
+        assert exception.type is DeclarationError
+        assert str(exception.value) == (f"`schema.uuid_str({value!r})` "
+                                        "is already declared")
+
+
+def test_uuid_str_lowercase_already_declared_lowercase_declaration_error():
+    with when, raises(Exception) as exception:
+        schema_uuid_str.lowercase().lowercase()
+
+    with then:
+        assert exception.type is DeclarationError
+        assert str(exception.value) == "`schema.uuid_str.lowercase()` is already declared"
+
+
+def test_uuid_str_lowercase_already_declared_uppercase_declaration_error():
+    with when, raises(Exception) as exception:
+        schema_uuid_str.uppercase().lowercase()
+
+    with then:
+        assert exception.type is DeclarationError
+        assert str(exception.value) == "`schema.uuid_str.uppercase()` is already declared"
+
+
+def test_uuid_str_uppercase_declaration():
+    with when:
+        sch = schema_uuid_str.uppercase()
+
+    with then:
+        assert sch.props.is_uppercase is True
+
+
+def test_uuid_str_uppercase_already_declared_declaration_error():
+    with given:
+        value = str(uuid4()).lower()
+
+    with when, raises(Exception) as exception:
+        schema_uuid_str(value).uppercase()
+
+    with then:
+        assert exception.type is DeclarationError
+        assert str(exception.value) == (f"`schema.uuid_str({value!r})` "
+                                        "is already declared")
+
+
+def test_uuid_str_uppercase_already_declared_uppercase_declaration_error():
+    with when, raises(Exception) as exception:
+        schema_uuid_str.uppercase().uppercase()
+
+    with then:
+        assert exception.type is DeclarationError
+        assert str(exception.value) == "`schema.uuid_str.uppercase()` is already declared"
+
+
+def test_uuid_str_uppercase_already_declared_lowercase_declaration_error():
+    with when, raises(Exception) as exception:
+        schema_uuid_str.lowercase().uppercase()
+
+    with then:
+        assert exception.type is DeclarationError
+        assert str(exception.value) == "`schema.uuid_str.lowercase()` is already declared"

@@ -1,5 +1,6 @@
 from uuid import UUID, uuid4
 
+import pytest
 from baby_steps import given, then, when
 from blahblah import fake
 
@@ -15,12 +16,13 @@ def test_uuid_str_generation():
 
     with then:
         assert isinstance(res, str)
-        assert str(UUID(res)) == res
+        assert str(UUID(res)) in (res.lower(), res.upper())
 
 
-def test_uuid_str_value_generation():
+@pytest.mark.parametrize("modifier", [str.lower, str.upper])
+def test_uuid_str_value_generation(modifier):
     with given:
-        val = str(uuid4())
+        val = modifier(str(uuid4()))
         sch = schema_uuid_str(val)
 
     with when:
@@ -28,3 +30,25 @@ def test_uuid_str_value_generation():
 
     with then:
         assert res == val
+
+
+def test_uuid_str_lowercase_generation():
+    with given:
+        sch = schema_uuid_str.lowercase()
+
+    with when:
+        res = fake(sch)
+
+    with then:
+        assert res.islower()
+
+
+def test_uuid_str_uppercase_generation():
+    with given:
+        sch = schema_uuid_str.uppercase()
+
+    with when:
+        res = fake(sch)
+
+    with then:
+        assert res.isupper()
