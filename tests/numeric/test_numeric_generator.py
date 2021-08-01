@@ -16,13 +16,8 @@ def random_() -> Random:
 
 
 @pytest.fixture()
-def regex_generator(random_: Random) -> RegexGenerator:
-    return RegexGenerator(random_)
-
-
-@pytest.fixture()
-def generator(random_: Random, regex_generator: RegexGenerator) -> Generator:
-    return Generator(random_, regex_generator)
+def generator(random_: Random) -> Generator:
+    return Generator(random_, RegexGenerator(random_))
 
 
 @pytest.fixture()
