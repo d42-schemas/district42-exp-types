@@ -46,3 +46,14 @@ register_type("uuid_str", UUIDStrSchema)
 
 print(schema.uuid_str)
 ```
+
+[sdict](https://github.com/nikitanovosibirsk/district42-exp-types/blob/master/district42_exp_types/sdict/__init__.py)
+
+```python
+from district42 import schema, register_type
+from district42_exp_types.sdict import SDictSchema
+
+register_type("sdict", SDictSchema)
+
+print(schema.sdict)
+```
