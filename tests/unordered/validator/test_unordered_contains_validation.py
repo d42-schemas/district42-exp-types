@@ -7,7 +7,7 @@ from th import PathHolder
 from valera import validate
 from valera.errors import ExtraElementValidationError
 
-from district42_exp_types.unordered import UnorderedValidationError, unordered_schema
+from district42_exp_types.unordered import UnorderedContainsValidationError, unordered_schema
 
 
 @pytest.mark.parametrize("value", [
@@ -52,8 +52,8 @@ def test_unordered_contains_head_validation_incorrect_element_error():
 
     with then:
         assert result.get_errors() == [
-            UnorderedValidationError(PathHolder(), schema.int(1)),
-            UnorderedValidationError(PathHolder(), schema.int(2)),
+            UnorderedContainsValidationError(PathHolder(), schema.int(1)),
+            UnorderedContainsValidationError(PathHolder(), schema.int(2)),
         ]
 
 
@@ -67,7 +67,7 @@ def test_unordered_contains_head_validation_missing_element_error():
 
     with then:
         assert result.get_errors() == [
-            UnorderedValidationError(PathHolder(), schema.int(2))
+            UnorderedContainsValidationError(PathHolder(), schema.int(2))
         ]
 
 
@@ -111,7 +111,7 @@ def test_unordered_contains_tail_validation_incorrect_element_error():
 
     with then:
         assert result.get_errors() == [
-            UnorderedValidationError(PathHolder(), schema.int(1))
+            UnorderedContainsValidationError(PathHolder(), schema.int(1))
         ]
 
 
@@ -125,7 +125,7 @@ def test_unordered_contains_tail_validation_missing_element_error():
 
     with then:
         assert result.get_errors() == [
-            UnorderedValidationError(PathHolder(), schema.int(2))
+            UnorderedContainsValidationError(PathHolder(), schema.int(2))
         ]
 
 
@@ -155,7 +155,7 @@ def test_unordered_contains_validation_incorrect_tail_element_error():
 
     with then:
         assert result.get_errors() == [
-            UnorderedValidationError(PathHolder(), schema.int(2))
+            UnorderedContainsValidationError(PathHolder(), schema.int(2))
         ]
 
 
@@ -186,7 +186,7 @@ def test_unordered_contains_validation_incorrect_head_element_error():
 
     with then:
         assert result.get_errors() == [
-            UnorderedValidationError(PathHolder(), schema.int(1))
+            UnorderedContainsValidationError(PathHolder(), schema.int(1))
         ]
 
 
@@ -200,7 +200,7 @@ def test_unordered_contains_validation_extra_head_element_error():
 
     with then:
         assert result.get_errors() == [
-            UnorderedValidationError(PathHolder(), schema.int(2))
+            UnorderedContainsValidationError(PathHolder(), schema.int(2))
         ]
 
 
@@ -214,7 +214,7 @@ def test_unordered_contains_validation_extra_tail_element_error():
 
     with then:
         assert result.get_errors() == [
-            UnorderedValidationError(PathHolder(), schema.int(1))
+            UnorderedContainsValidationError(PathHolder(), schema.int(1))
         ]
 
 
@@ -240,7 +240,7 @@ def test_unordered_contains_validation_missing_tail_element_error():
 
     with then:
         assert result.get_errors() == [
-            UnorderedValidationError(PathHolder(), schema.int(2))
+            UnorderedContainsValidationError(PathHolder(), schema.int(2))
         ]
 
 
@@ -254,7 +254,7 @@ def test_unordered_contains_validation_missing_head_element_error():
 
     with then:
         assert result.get_errors() == [
-            UnorderedValidationError(PathHolder(), schema.int(1))
+            UnorderedContainsValidationError(PathHolder(), schema.int(1))
         ]
 
 
@@ -280,5 +280,5 @@ def test_unordered_contains_validation_no_elements_error():
 
     with then:
         assert result.get_errors() == [
-            UnorderedValidationError(PathHolder(), schema.int)
+            UnorderedContainsValidationError(PathHolder(), schema.int)
         ]

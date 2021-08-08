@@ -16,10 +16,10 @@ from valera.errors import (
 
 from ._unordered_schema import UnorderedSchema
 
-__all__ = ("UnorderedValidator", "UnorderedFormatter", "UnorderedValidationError",)
+__all__ = ("UnorderedValidator", "UnorderedFormatter", "UnorderedContainsValidationError",)
 
 
-class UnorderedValidationError(ValidationError):
+class UnorderedContainsValidationError(ValidationError):
     def __init__(self, path: PathHolder, element: GenericSchema) -> None:
         self.path = path
         self.element = element
@@ -32,8 +32,9 @@ class UnorderedValidationError(ValidationError):
 
 
 class UnorderedFormatter(Formatter, extend=True):
-    def format_unordered_error(self, error: UnorderedValidationError) -> str:
-        return f"Schema must match {error.element!r}"
+    def format_unordered_error(self, error: UnorderedContainsValidationError) -> str:
+        formatted_path = self._at_path(error.path)
+        return f"Value{formatted_path} must contain {error.element!r}"
 
 
 class UnorderedValidator(Validator, extend=True):
@@ -75,7 +76,7 @@ class UnorderedValidator(Validator, extend=True):
         errors: List[ValidationError] = []
         for index, element in enumerate(elements):
             if index not in matched_elements:
-                errors.append(UnorderedValidationError(path, element))
+                errors.append(UnorderedContainsValidationError(path, element))
         return errors
 
     def visit_unordered(self, schema: UnorderedSchema, *,

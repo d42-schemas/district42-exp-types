@@ -13,7 +13,7 @@ from valera.errors import (
     TypeValidationError,
 )
 
-from district42_exp_types.unordered import UnorderedValidationError, unordered_schema
+from district42_exp_types.unordered import UnorderedContainsValidationError, unordered_schema
 
 
 @pytest.mark.parametrize("value", [
@@ -116,7 +116,7 @@ def test_unordered_less_elements_validation_error():
 
     with then:
         assert result.get_errors() == [
-            UnorderedValidationError(PathHolder(), schema.int)
+            UnorderedContainsValidationError(PathHolder(), schema.int)
         ]
 
 
