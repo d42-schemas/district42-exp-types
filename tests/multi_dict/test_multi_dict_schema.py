@@ -4,7 +4,7 @@ from district42.errors import DeclarationError
 from multidict import MultiDict, MultiDictProxy
 from pytest import raises
 
-from district42_exp_types.multidict import MultiDictSchema, schema_multi_dict
+from district42_exp_types.multi_dict import MultiDictSchema, schema_multi_dict
 
 
 def test_multi_dict_declaration():

@@ -3,7 +3,7 @@ from blahblah import generate
 from district42 import schema
 from multidict import MultiDict
 
-from district42_exp_types.multidict import schema_multi_dict
+from district42_exp_types.multi_dict import schema_multi_dict
 
 
 def test_multi_dict_empty_generation():

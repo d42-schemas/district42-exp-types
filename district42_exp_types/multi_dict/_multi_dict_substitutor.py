@@ -10,7 +10,7 @@ from th import PathHolder
 from valera import ValidationResult
 from valera.errors import ExtraKeyValidationError, TypeValidationError, ValidationError
 
-from ._multidict_schema import MultiDictSchema
+from ._multi_dict_schema import MultiDictSchema
 
 __all__ = ("MultiDictSubstitutor", "MultiDictSubstitutorValidator",)
 

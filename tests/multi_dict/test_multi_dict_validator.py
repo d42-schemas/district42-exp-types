@@ -8,7 +8,7 @@ from th import PathHolder
 from valera import validate
 from valera.errors import ExtraKeyValidationError, MissingKeyValidationError, TypeValidationError
 
-from district42_exp_types.multidict import schema_multi_dict
+from district42_exp_types.multi_dict import schema_multi_dict
 
 
 @pytest.mark.parametrize("value", [

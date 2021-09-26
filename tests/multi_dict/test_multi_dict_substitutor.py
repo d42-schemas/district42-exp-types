@@ -6,7 +6,7 @@ from pytest import raises
 from revolt import substitute
 from revolt.errors import SubstitutionError
 
-from district42_exp_types.multidict import schema_multi_dict
+from district42_exp_types.multi_dict import schema_multi_dict
 
 
 def test_multi_dict_substitution():

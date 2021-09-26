@@ -13,7 +13,7 @@ from valera.errors import (
     ValidationError,
 )
 
-from ._multidict_schema import MultiDictSchema
+from ._multi_dict_schema import MultiDictSchema
 
 __all__ = ("MultiDictValidator",)
 

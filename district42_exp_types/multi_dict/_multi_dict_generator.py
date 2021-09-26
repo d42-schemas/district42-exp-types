@@ -5,7 +5,7 @@ from district42 import GenericSchema
 from multidict import MultiDict
 from niltype import Nil
 
-from ._multidict_schema import MultiDictSchema
+from ._multi_dict_schema import MultiDictSchema
 
 __all__ = ("MultiDictGenerator",)
 
