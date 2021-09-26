@@ -205,7 +205,9 @@ def test_multi_dict_multidict_extra_value_validation_error():
         result = validate(sch, value)
 
     with then:
-        assert result.get_errors() != []
+        assert result.get_errors() == [
+            ExtraKeyValidationError(PathHolder(), value, "id")
+        ]
 
 
 def test_multi_dict_multidict_missing_value_validation_error():
@@ -224,4 +226,6 @@ def test_multi_dict_multidict_missing_value_validation_error():
         result = validate(sch, value)
 
     with then:
-        assert result.get_errors() != []
+        assert result.get_errors() == [
+            TypeValidationError(PathHolder()['id'], 42, str)
+        ]

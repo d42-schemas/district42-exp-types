@@ -13,7 +13,7 @@ __all__ = ("MultiDictProps", "MultiDictSchema",)
 MultiDictKeys = Union[
     MultiDict[GenericSchema],
     Dict[str, GenericSchema],
-    List[Tuple[GenericSchema, Any]],
+    List[Tuple[str, GenericSchema]],
 ]
 
 
