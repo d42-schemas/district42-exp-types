@@ -5,7 +5,7 @@ from district42 import GenericSchema
 from multidict import MultiDict
 from niltype import Nil, Nilable
 from revolt import Substitutor, SubstitutorValidator
-from revolt.errors import make_substitution_error, SubstitutionError
+from revolt.errors import SubstitutionError, make_substitution_error
 from th import PathHolder
 from valera import ValidationResult
 from valera.errors import ExtraKeyValidationError, TypeValidationError, ValidationError
@@ -34,11 +34,28 @@ class MultiDictSubstitutor(Substitutor, extend=True):
             for key, val in value.items():
                 keys.add(key, self._from_native(val))
         else:
-            for key, val in schema.props.keys.items():
-                if key in value:
-                    keys.add(key, val.__accept__(self, value=value[key], **kwargs))
-                else:
+            for key in set(schema.props.keys):
+                if key not in value:
+                    for val in schema.props.keys.getall(key):
+                        keys.add(key, val)
+                    continue
+                values = schema.props.keys.getall(key)
+                candidates = value.getall(key)
+                for candidate in candidates:
+                    substituted = False
+                    for idx, val in enumerate(values):
+                        try:
+                            sch = val.__accept__(self, value=candidate, **kwargs)
+                        except SubstitutionError:
+                            pass
+                        else:
+                            values[idx] = sch
+                            substituted = True
+                    if not substituted:
+                        raise SubstitutionError(f"Can't substitute {candidate!r}")
+                for val in values:
                     keys.add(key, val)
+
             for key, val in value.items():
                 if key not in schema.props.keys:
                     raise SubstitutionError(f"Unknown key {key!r}")

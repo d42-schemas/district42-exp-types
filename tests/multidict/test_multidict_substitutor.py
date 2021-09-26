@@ -51,6 +51,27 @@ def test_multi_dict_keys_substitution():
         assert res != sch
 
 
+def test_multi_dict_multi_keys_substitution():
+    with given:
+        sch = schema_multi_dict
+        value = [
+            ("id", 1),
+            ("id", "1"),
+            ("name", "Bob"),
+        ]
+
+    with when:
+        res = substitute(sch, value)
+
+    with then:
+        assert res == schema_multi_dict([
+            ("id", schema.int(1)),
+            ("id", schema.str("1")),
+            ("name", schema.str("Bob")),
+        ])
+        assert res != sch
+
+
 def test_multi_dict_value_substitution_error():
     with given:
         sch = schema_multi_dict
@@ -64,22 +85,46 @@ def test_multi_dict_value_substitution_error():
 
 def test_multi_dict_values_substitution():
     with given:
-        sch = schema_multi_dict({
-            "id": schema.int,
-            "name": schema.str,
-        })
+        sch = schema_multi_dict([
+            ("id", schema.int),
+            ("name", schema.str),
+        ])
 
     with when:
-        res = substitute(sch, {
-            "id": 1,
-            "name": "Bob",
-        })
+        res = substitute(sch, [
+            ("id", 1),
+            ("name", "Bob"),
+        ])
 
     with then:
-        assert res == schema_multi_dict({
-            "id": schema.int(1),
-            "name": schema.str("Bob"),
-        })
+        assert res == schema_multi_dict([
+            ("id", schema.int(1)),
+            ("name", schema.str("Bob")),
+        ])
+        assert res != sch
+
+
+def test_multi_dict_list_multi_values_substitution():
+    with given:
+        sch = schema_multi_dict([
+            ("id", schema.int),
+            ("id", schema.str),
+            ("name", schema.str),
+        ])
+
+    with when:
+        res = substitute(sch, [
+            ("id", 1),
+            ("id", "1"),
+            ("name", "Bob"),
+        ])
+
+    with then:
+        assert res == schema_multi_dict([
+            ("id", schema.int(1)),
+            ("id", schema.str("1")),
+            ("name", schema.str("Bob")),
+        ])
         assert res != sch
 
 
@@ -114,10 +159,10 @@ def test_multi_dict_more_keys_substitution_error():
 
 def test_multi_dict_less_keys_substitution():
     with given:
-        sch = schema_multi_dict({
-            "id": schema.int,
-            "name": schema.str,
-        })
+        sch = schema_multi_dict([
+            ("id", schema.int),
+            ("name", schema.str),
+        ])
 
     with when:
         res = substitute(sch, {
@@ -125,8 +170,8 @@ def test_multi_dict_less_keys_substitution():
         })
 
     with then:
-        assert res == schema_multi_dict({
-            "id": schema.int(1),
-            "name": schema.str,
-        })
+        assert res == schema_multi_dict([
+            ("id", schema.int(1)),
+            ("name", schema.str),
+        ])
         assert res != sch
