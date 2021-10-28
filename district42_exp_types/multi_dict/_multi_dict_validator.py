@@ -14,6 +14,7 @@ from valera.errors import (
 )
 
 from ._multi_dict_schema import MultiDictSchema
+from ._utils import get_unique_keys
 
 __all__ = ("MultiDictValidator",)
 
@@ -43,7 +44,7 @@ class MultiDictValidator(Validator, extend=True):
         if schema.props.keys is Nil:
             return result
 
-        for key in set(schema.props.keys):
+        for key in get_unique_keys(schema.props.keys):
             if key not in value:
                 result.add_error(MissingKeyValidationError(path, value, key))
                 continue

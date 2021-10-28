@@ -11,6 +11,7 @@ from valera import ValidationResult
 from valera.errors import ExtraKeyValidationError, ValidationError
 
 from ._multi_dict_schema import MultiDictSchema
+from ._utils import get_unique_keys
 
 __all__ = ("MultiDictSubstitutor", "MultiDictSubstitutorValidator",)
 
@@ -35,12 +36,7 @@ class MultiDictSubstitutor(Substitutor, extend=True):
                 keys.add(key, self._from_native(val))
             return schema.__class__(schema.props.update(keys=keys))
 
-        used = set()
-        for key in schema.props.keys.keys():
-            if key in used:
-                continue
-            used.add(key)
-
+        for key in get_unique_keys(schema.props.keys):
             if key not in value:
                 for val in schema.props.keys.getall(key):
                     keys.add(key, val)
@@ -84,7 +80,7 @@ class MultiDictSubstitutorValidator(SubstitutorValidator, extend=True):
         if schema.props.keys is Nil:
             return result
 
-        for key in set(schema.props.keys):
+        for key in get_unique_keys(schema.props.keys):
             if key not in value:
                 continue
             candidates = value.getall(key)
