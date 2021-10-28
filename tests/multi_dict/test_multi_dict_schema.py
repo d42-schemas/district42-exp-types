@@ -37,6 +37,22 @@ def test_multi_dict_invalid_type_declaration_error():
                                         "instance of 'set' given")
 
 
+def test_multi_dict_dict_invalid_key_declaration():
+    with given:
+        keys = {
+            "id": schema.int(42),
+            None: None,
+        }
+
+    with when, raises(Exception) as exception:
+        schema_multi_dict(keys)
+
+    with then:
+        assert exception.type is DeclarationError
+        assert str(exception.value) == ("`schema.multi_dict` value must be an instance of 'str',"
+                                        " instance of 'NoneType' None given")
+
+
 def test_multi_dict_dict_keys_declaration():
     with given:
         keys = {

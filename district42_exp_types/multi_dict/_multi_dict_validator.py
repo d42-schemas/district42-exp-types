@@ -2,7 +2,7 @@ from copy import deepcopy
 from typing import Any, List, Mapping
 
 from district42 import GenericSchema
-from multidict import MultiDict
+from multidict import MultiDict, MultiDictProxy
 from niltype import Nil, Nilable
 from th import PathHolder
 from valera import ValidationResult, Validator
@@ -49,7 +49,7 @@ class MultiDictValidator(Validator, extend=True):
                 continue
 
             nested_path = deepcopy(path)[key]
-            if isinstance(value, MultiDict):
+            if isinstance(value, (MultiDict, MultiDictProxy)):
                 candidates = value.getall(key)
                 for val in schema.props.keys.getall(key):
                     errors = self.__validate_candidates(val, nested_path, candidates, **kwargs)
@@ -63,7 +63,10 @@ class MultiDictValidator(Validator, extend=True):
             if key not in schema.props.keys:
                 result.add_error(ExtraKeyValidationError(path, value, key))
             else:
-                vals = value.getall(key) if isinstance(value, MultiDict) else [value.get(key)]
+                if isinstance(value, (MultiDict, MultiDictProxy)):
+                    vals = value.getall(key)
+                else:
+                    vals = [value.get(key)]
                 if len(vals) > len(schema.props.keys.getall(key)):
                     result.add_error(ExtraKeyValidationError(path, value, key))
 
