@@ -60,7 +60,7 @@ class CIMultiDictValidator(Validator, extend=True):
                 res = val.__accept__(self, value=value[key], path=nested_path, **kwargs)
                 result.add_errors(res.get_errors())
 
-        for key in set(value):
+        for key in get_unique_keys(value):
             if key not in schema.props.keys:
                 result.add_error(ExtraKeyValidationError(path, value, key))
             else:

@@ -89,7 +89,7 @@ class CIMultiDictSubstitutorValidator(SubstitutorValidator, extend=True):
                 errors = self.__validate_candidates(val, nested_path, candidates, **kwargs)
                 result.add_errors(errors)
 
-        for key in set(value):
+        for key in get_unique_keys(value):
             if key not in schema.props.keys:
                 result.add_error(ExtraKeyValidationError(path, value, key))
             else:
