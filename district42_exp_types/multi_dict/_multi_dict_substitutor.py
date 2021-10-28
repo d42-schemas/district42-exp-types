@@ -1,14 +1,14 @@
 from copy import deepcopy
-from typing import Any, List, Mapping
+from typing import Any, List
 
 from district42 import GenericSchema
-from multidict import MultiDict, MultiDictProxy
+from multidict import MultiDict
 from niltype import Nil, Nilable
 from revolt import Substitutor, SubstitutorValidator
 from revolt.errors import SubstitutionError, make_substitution_error
 from th import PathHolder
 from valera import ValidationResult
-from valera.errors import ExtraKeyValidationError, TypeValidationError, ValidationError
+from valera.errors import ExtraKeyValidationError, ValidationError
 
 from ._multi_dict_schema import MultiDictSchema
 
@@ -45,10 +45,10 @@ class MultiDictSubstitutor(Substitutor, extend=True):
                 for val in schema.props.keys.getall(key):
                     keys.add(key, val)
                 continue
+
             values = schema.props.keys.getall(key)
             candidates = value.getall(key)
             for candidate in candidates:
-                substituted = False
                 for idx, val in enumerate(values):
                     try:
                         sch = val.__accept__(self, value=candidate, **kwargs)
@@ -56,15 +56,8 @@ class MultiDictSubstitutor(Substitutor, extend=True):
                         pass
                     else:
                         values[idx] = sch
-                        substituted = True
-                if not substituted:
-                    raise SubstitutionError(f"Can't substitute {candidate!r}")
             for val in values:
                 keys.add(key, val)
-
-        for key, val in value.items():
-            if key not in schema.props.keys:
-                raise SubstitutionError(f"Unknown key {key!r}")
 
         return schema.__class__(schema.props.update(keys=keys))
 
@@ -88,35 +81,23 @@ class MultiDictSubstitutorValidator(SubstitutorValidator, extend=True):
         if path is Nil:
             path = self._path_holder_factory()
 
-        if not isinstance(value, Mapping):
-            return result.add_error(TypeValidationError(path, value, Mapping))
-
         if schema.props.keys is Nil:
             return result
 
         for key in set(schema.props.keys):
             if key not in value:
                 continue
-
+            candidates = value.getall(key)
             nested_path = deepcopy(path)[key]
-            if isinstance(value, (MultiDict, MultiDictProxy)):
-                candidates = value.getall(key)
-                for val in schema.props.keys.getall(key):
-                    errors = self.__validate_candidates(val, nested_path, candidates, **kwargs)
-                    result.add_errors(errors)
-            else:
-                val = schema.props.keys.getone(key)
-                res = val.__accept__(self, value=value[key], path=nested_path, **kwargs)
-                result.add_errors(res.get_errors())
+            for val in schema.props.keys.getall(key):
+                errors = self.__validate_candidates(val, nested_path, candidates, **kwargs)
+                result.add_errors(errors)
 
         for key in set(value):
             if key not in schema.props.keys:
                 result.add_error(ExtraKeyValidationError(path, value, key))
             else:
-                if isinstance(value, (MultiDict, MultiDictProxy)):
-                    vals = value.getall(key)
-                else:
-                    vals = [value.get(key)]
+                vals = value.getall(key)
                 if len(vals) > len(schema.props.keys.getall(key)):
                     result.add_error(ExtraKeyValidationError(path, value, key))
 
