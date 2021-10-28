@@ -4,6 +4,9 @@ from niltype import Nil, Nilable
 from th import PathHolder
 from valera import ValidationResult, Validator
 
+# register visit_multi_dict
+from district42_exp_types.multi_dict import MultiDictValidator  # noqa: F401
+
 from ._ci_multi_dict_schema import CIMultiDictSchema
 
 __all__ = ("CIMultiDictValidator",)

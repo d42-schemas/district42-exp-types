@@ -2,6 +2,9 @@ from typing import Any
 
 from district42.representor import Representor
 
+# register visit_multi_dict
+from district42_exp_types.multi_dict import MultiDictRepresentor  # noqa: F401
+
 from ._ci_multi_dict_schema import CIMultiDictSchema
 
 __all__ = ("CIMultiDictRepresentor",)

@@ -8,6 +8,6 @@ from ._multi_dict_validator import MultiDictValidator
 
 schema_multi_dict = register_type("multi_dict", MultiDictSchema)
 
-__all__ = ("MultiDictSchema", "schema_multi_dict", "MultiDictProps", "MultiDictRepresentor",
+__all__ = ("schema_multi_dict", "MultiDictSchema", "MultiDictProps", "MultiDictRepresentor",
            "MultiDictValidator", "MultiDictSubstitutor", "MultiDictGenerator",
            "MultiDictSubstitutorValidator",)
