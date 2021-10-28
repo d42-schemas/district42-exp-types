@@ -19,11 +19,11 @@ def test_ci_multi_dict_multidict_validation(multidict_factory: Callable):
     with given:
         sch = schema_ci_multi_dict([
             ("id", schema.int(42)),
-            ("Id", schema.str("42")),
+            ("ID", schema.str("42")),
             ("name", schema.str("Bob")),
         ])
         value = multidict_factory([
-            ("Id", 42),
+            ("ID", 42),
             ("id", "42"),
             ("name", "Bob"),
         ])
@@ -68,11 +68,11 @@ def test_ci_multi_dict_multidict_missing_value_validation_error(multidict_factor
     with given:
         sch = schema_ci_multi_dict([
             ("id", schema.int(42)),
-            ("Id", schema.str("42")),
+            ("ID", schema.str("42")),
             ("name", schema.str("Bob")),
         ])
         value = multidict_factory([
-            ("Id", 42),
+            ("ID", 42),
             ("name", "Bob"),
         ])
 
