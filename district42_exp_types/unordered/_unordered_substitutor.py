@@ -3,8 +3,7 @@ from typing import Any
 
 from district42.utils import is_ellipsis
 from niltype import Nil, Nilable
-from revolt import Substitutor
-from revolt._validator import SubstitutorValidator
+from revolt import Substitutor, SubstitutorValidator
 from revolt.errors import SubstitutionError, make_substitution_error
 from th import PathHolder
 from valera import ValidationResult
