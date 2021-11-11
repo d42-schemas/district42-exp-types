@@ -58,6 +58,17 @@ register_type("sdict", SDictSchema)
 print(schema.sdict)
 ```
 
+[unordered](https://github.com/nikitanovosibirsk/district42-exp-types/blob/master/district42_exp_types/unordered/__init__.py)
+
+```python
+from district42 import schema, register_type
+from district42_exp_types.unordered import UnorderedSchema
+
+register_type("unordered", UnorderedSchema)
+
+print(schema.unordered)
+```
+
 [multi_dict](https://github.com/nikitanovosibirsk/district42-exp-types/blob/master/district42_exp_types/multi_dict/__init__.py)
 
 ```python
