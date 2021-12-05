@@ -139,7 +139,6 @@ def test_unordered_contains_tail_validation_extra_element_error():
         result = validate(sch, value)
 
     with then:
-        print(result)
         assert result.get_errors() == [
             ExtraElementValidationError(PathHolder(), actual_value=value[2], index=2)
         ]

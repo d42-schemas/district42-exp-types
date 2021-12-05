@@ -42,10 +42,71 @@ def test_sdict_nested_optional_declaration():
         })
 
     with then:
-        print(sch)
         assert sch == schema.sdict({
             "result": schema.sdict({
                 "id": schema.int(1),
                 optional("name"): schema.str("Bob"),
+            })
+        })
+
+
+def test_sdict_relaxed_declaration():
+    with when:
+        sch = schema_sdict({
+            "result.id": schema.int(1),
+            "result.name": schema.str("Bob"),
+            ...: ...
+        })
+
+    with then:
+        assert sch == schema.sdict({
+            "result": schema.sdict({
+                "id": schema.int(1),
+                "name": schema.str("Bob")
+            }),
+            ...: ...
+        })
+
+
+def test_sdict_relaxed_nested_declaration():
+    with when:
+        sch = schema_sdict({
+            "result": {...: ...},
+            "result.id": schema.int(1),
+            "result.name": schema.str("Bob"),
+        })
+
+    with then:
+        assert sch == schema.sdict({
+            "result": schema.sdict({
+                ...: ...,
+                "id": schema.int(1),
+                "name": schema.str("Bob")
+            })
+        })
+
+
+def test_sdict_relaxed_deep_nested_declaration():
+    with when:
+        sch = schema_sdict({
+            "result.id": schema.int(1),
+            "result.name": schema.str("Bob"),
+            "result.friend": {
+                "id": schema.int(2),
+                "name": schema.str("Alice"),
+                ...: ...
+            }
+        })
+
+    with then:
+        assert sch == schema.sdict({
+            "result": schema.sdict({
+                "id": schema.int(1),
+                "name": schema.str("Bob"),
+                "friend": schema.sdict({
+                    "id": schema.int(2),
+                    "name": schema.str("Alice"),
+                    ...: ...
+                })
             })
         })

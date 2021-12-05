@@ -32,3 +32,24 @@ def test_sdict_keys_representation():
                             "    'name': schema.str",
                             "})"
                         ])
+
+
+def test_sdict_relaxed_keys_representation():
+    with given:
+        sch = schema_sdict({
+            "id": schema.int,
+            "name": schema.str,
+            ...: ...
+        })
+
+    with when:
+        res = represent(sch)
+
+    with then:
+        assert res == "\n".join([
+                            "schema.sdict({",
+                            "    'id': schema.int,",
+                            "    'name': schema.str,",
+                            "    ...: ...",
+                            "})"
+                        ])

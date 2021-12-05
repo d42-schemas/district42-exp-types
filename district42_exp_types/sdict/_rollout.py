@@ -1,6 +1,7 @@
-from typing import Any, Dict, Union, cast
+from typing import Any, Dict, Union
 
 from district42 import optional
+from district42.utils import is_ellipsis
 
 __all__ = ("rollout",)
 
@@ -12,14 +13,19 @@ def rollout(keys: KeysType, separator: str = ".") -> KeysType:
     updated: KeysType = {}
 
     for comp_key, val in keys.items():
-        assert isinstance(comp_key, (str, optional))
+        if is_ellipsis(comp_key):
+            assert is_ellipsis(val)
+            updated[comp_key] = val
+            continue
 
         is_optional = False
         if isinstance(comp_key, optional):
+            assert isinstance(comp_key.key, str)
             comp_key = comp_key.key
             is_optional = True
+        assert isinstance(comp_key, str)
 
-        parts = cast(str, comp_key).split(separator)
+        parts = comp_key.split(separator)
         key = parts[0]
         if len(parts) == 1:
             updated[optional(key) if is_optional else key] = val

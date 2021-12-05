@@ -68,25 +68,3 @@ register_type("unordered", UnorderedSchema)
 
 print(schema.unordered)
 ```
-
-[multi_dict](https://github.com/nikitanovosibirsk/district42-exp-types/blob/master/district42_exp_types/multi_dict/__init__.py)
-
-```python
-from district42 import schema, register_type
-from district42_exp_types.multi_dict import MultiDictSchema
-
-register_type("multi_dict", MultiDictSchema)
-
-print(schema.multi_dict)
-```
-
-[ci_multi_dict](https://github.com/nikitanovosibirsk/district42-exp-types/blob/master/district42_exp_types/ci_multi_dict/__init__.py)
-
-```python
-from district42 import schema, register_type
-from district42_exp_types.ci_multi_dict import CIMultiDictSchema
-
-register_type("ci_multi_dict", CIMultiDictSchema)
-
-print(schema.ci_multi_dict)
-```
