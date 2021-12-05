@@ -13,7 +13,7 @@ def find_dev_required():
 
 setup(
     name="district42-exp-types",
-    version="0.7.1",
+    version="0.8.0",
     description="district42 experimental types",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
