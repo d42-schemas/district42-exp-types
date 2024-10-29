@@ -17,7 +17,8 @@ pip3 install district42-exp-types
 [numeric](https://github.com/d42-schemas/district42-exp-types/blob/master/district42_exp_types/numeric/__init__.py)
 
 ```python
-from district42 import schema, register_type
+from d42 import schema
+from d42.declaration import register_type
 from district42_exp_types.numeric import NumericSchema
 
 register_type("numeric", NumericSchema)
@@ -27,7 +28,8 @@ print(schema.numeric)
 
 [uuid](https://github.com/d42-schemas/district42-exp-types/blob/master/district42_exp_types/uuid/__init__.py)
 ```python
-from district42 import schema, register_type
+from d42 import schema
+from d42.declaration import register_type
 from district42_exp_types.uuid import UUIDSchema
 
 register_type("uuid", UUIDSchema)
@@ -38,7 +40,8 @@ print(schema.uuid)
 [uuid_str](https://github.com/d42-schemas/district42-exp-types/blob/master/district42_exp_types/uuid_str/__init__.py)
 
 ```python
-from district42 import schema, register_type
+from d42 import schema
+from d42.declaration import register_type
 from district42_exp_types.uuid_str import UUIDStrSchema
 
 register_type("uuid_str", UUIDStrSchema)
@@ -49,7 +52,8 @@ print(schema.uuid_str)
 [sdict](https://github.com/d42-schemas/district42-exp-types/blob/master/district42_exp_types/sdict/__init__.py)
 
 ```python
-from district42 import schema, register_type
+from d42 import schema
+from d42.declaration import register_type
 from district42_exp_types.sdict import SDictSchema
 
 register_type("sdict", SDictSchema)
@@ -57,10 +61,11 @@ register_type("sdict", SDictSchema)
 print(schema.sdict)
 ```
 
-[unordered](https://github.com/nikitanovosibirsk/district42-exp-types/blob/master/district42_exp_types/unordered/__init__.py)
+[unordered](https://github.com/d42-schemas/district42-exp-types/blob/master/district42_exp_types/unordered/__init__.py)
 
 ```python
-from district42 import schema, register_type
+from d42 import schema
+from d42.declaration import register_type
 from district42_exp_types.unordered import UnorderedSchema
 
 register_type("unordered", UnorderedSchema)
