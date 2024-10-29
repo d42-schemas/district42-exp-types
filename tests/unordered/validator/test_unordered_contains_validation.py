@@ -2,10 +2,9 @@ from typing import Any, List
 
 import pytest
 from baby_steps import given, then, when
-from district42 import schema
+from d42 import schema, validate
+from d42.validation.errors import ExtraElementValidationError
 from th import PathHolder
-from valera import validate
-from valera.errors import ExtraElementValidationError
 
 from district42_exp_types.unordered import UnorderedContainsValidationError, unordered_schema
 

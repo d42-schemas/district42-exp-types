@@ -1,8 +1,8 @@
 from typing import Any, cast
 
-from district42 import SchemaVisitor
-from district42 import SchemaVisitorReturnType as ReturnType
-from district42.types import ListSchema
+from d42.declaration import SchemaVisitor
+from d42.declaration import SchemaVisitorReturnType as ReturnType
+from d42.declaration.types import ListSchema
 
 __all__ = ("UnorderedSchema",)
 

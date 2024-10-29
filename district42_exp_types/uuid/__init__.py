@@ -1,4 +1,4 @@
-from district42 import register_type
+from d42.custom_type import register_type
 
 from ._uuid_generator import UUIDGenerator
 from ._uuid_representor import UUIDRepresentor

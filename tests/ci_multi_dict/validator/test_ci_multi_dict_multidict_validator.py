@@ -2,11 +2,10 @@ from typing import Callable
 
 import pytest
 from baby_steps import given, then, when
-from district42 import schema
+from d42 import schema, validate
+from d42.validation.errors import ExtraKeyValidationError, TypeValidationError
 from multidict import CIMultiDict, CIMultiDictProxy
 from th import PathHolder
-from valera import validate
-from valera.errors import ExtraKeyValidationError, TypeValidationError
 
 from district42_exp_types.ci_multi_dict import schema_ci_multi_dict
 

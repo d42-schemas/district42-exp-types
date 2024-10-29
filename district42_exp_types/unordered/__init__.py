@@ -1,4 +1,4 @@
-from district42 import register_type
+from d42.custom_type import register_type
 
 from ._unordered_generator import UnorderedGenerator
 from ._unordered_representor import UnorderedRepresentor

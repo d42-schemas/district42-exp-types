@@ -3,8 +3,8 @@ from unittest.mock import Mock, call
 
 import pytest
 from baby_steps import given, then, when
-from blahblah import Generator, Random, RegexGenerator
-from district42.types import Schema
+from d42.declaration import Schema
+from d42.generation import Generator, Random, RegexGenerator
 
 from district42_exp_types.numeric import schema_numeric
 from district42_exp_types.numeric._numeric_generator import INT_MAX, INT_MIN

@@ -1,7 +1,7 @@
 from typing import Any, cast
 
+from d42.substitution import Substitutor
 from niltype import Nil
-from revolt import Substitutor
 
 from ._rollout import rollout
 from ._sdict_schema import SDictSchema

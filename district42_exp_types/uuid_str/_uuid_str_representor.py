@@ -1,6 +1,6 @@
 from typing import Any
 
-from district42.representor import Representor
+from d42.representation import Representor
 from niltype import Nil
 
 from ._uuid_str_schema import UUIDStrSchema

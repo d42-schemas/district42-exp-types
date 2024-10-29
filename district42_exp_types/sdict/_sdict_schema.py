@@ -1,9 +1,9 @@
 from typing import Any, Dict, cast
 
-from district42 import GenericSchema, SchemaVisitor
-from district42 import SchemaVisitorReturnType as ReturnType
-from district42.types import DictSchema
-from district42.utils import TypeOrEllipsis
+from d42.declaration import GenericSchema, SchemaVisitor
+from d42.declaration import SchemaVisitorReturnType as ReturnType
+from d42.declaration.types import DictSchema
+from d42.utils import TypeOrEllipsis
 
 from ._rollout import rollout
 

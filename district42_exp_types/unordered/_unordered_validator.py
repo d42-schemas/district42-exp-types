@@ -1,18 +1,18 @@
 from copy import deepcopy
 from typing import Any, Dict, List, cast
 
-from district42 import GenericSchema
-from district42.utils import is_ellipsis
-from niltype import Nil, Nilable
-from th import PathHolder
-from valera import Formatter, ValidationResult, Validator
-from valera.errors import (
+from d42.declaration import GenericSchema
+from d42.utils import is_ellipsis
+from d42.validation import Formatter, ValidationResult, Validator
+from d42.validation.errors import (
     ExtraElementValidationError,
     LengthValidationError,
     MaxLengthValidationError,
     MinLengthValidationError,
     ValidationError,
 )
+from niltype import Nil, Nilable
+from th import PathHolder
 
 from ._unordered_schema import UnorderedSchema
 

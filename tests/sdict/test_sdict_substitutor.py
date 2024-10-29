@@ -1,8 +1,7 @@
 from _pytest.python_api import raises
 from baby_steps import given, then, when
-from district42 import schema
-from revolt import substitute
-from revolt.errors import SubstitutionError
+from d42 import schema, substitute
+from d42.substitution.errors import SubstitutionError
 
 from district42_exp_types.sdict import schema_sdict
 

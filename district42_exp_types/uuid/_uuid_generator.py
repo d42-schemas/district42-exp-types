@@ -1,7 +1,7 @@
 from typing import Any
 from uuid import UUID, uuid4
 
-from blahblah import Generator
+from d42.generation import Generator
 from niltype import Nil
 
 from ._uuid_schema import UUIDSchema

@@ -1,6 +1,6 @@
 import pytest
 from baby_steps import given, then, when
-from district42 import represent
+from d42.representation import represent
 
 from district42_exp_types.numeric import schema_numeric
 

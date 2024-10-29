@@ -1,8 +1,8 @@
 from typing import Any
 
+from d42.validation import ValidationResult, Validator
 from niltype import Nil, Nilable
 from th import PathHolder
-from valera import ValidationResult, Validator
 
 from ._sdict_schema import SDictSchema
 

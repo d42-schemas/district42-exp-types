@@ -1,10 +1,10 @@
 from typing import Any, cast
 from uuid import UUID
 
+from d42.validation import Formatter, ValidationResult, Validator
+from d42.validation.errors import TypeValidationError, ValidationError, ValueValidationError
 from niltype import Nil, Nilable
 from th import PathHolder
-from valera import Formatter, ValidationResult, Validator
-from valera.errors import TypeValidationError, ValidationError, ValueValidationError
 
 from ._uuid_str_schema import UUIDStrSchema
 

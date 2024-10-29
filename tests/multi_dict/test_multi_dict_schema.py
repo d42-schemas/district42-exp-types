@@ -1,6 +1,6 @@
 from baby_steps import given, then, when
-from district42 import schema
-from district42.errors import DeclarationError
+from d42 import schema
+from d42.declaration import DeclarationError
 from multidict import MultiDict, MultiDictProxy
 from pytest import raises
 

@@ -1,6 +1,6 @@
 from typing import Any, List
 
-from blahblah import Generator
+from d42.generation import Generator
 
 from ._unordered_schema import UnorderedSchema
 

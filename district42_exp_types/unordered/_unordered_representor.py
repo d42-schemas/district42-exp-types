@@ -1,6 +1,6 @@
 from typing import Any
 
-from district42.representor import Representor
+from d42.representation import Representor
 
 from ._unordered_schema import UnorderedSchema
 

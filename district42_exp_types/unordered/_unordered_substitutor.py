@@ -1,13 +1,17 @@
 from copy import deepcopy
 from typing import Any
 
-from district42.utils import is_ellipsis
+from d42.substitution import Substitutor, SubstitutorValidator
+from d42.substitution.errors import SubstitutionError, make_substitution_error
+from d42.utils import is_ellipsis
+from d42.validation import ValidationResult
+from d42.validation.errors import (
+    LengthValidationError,
+    MaxLengthValidationError,
+    MinLengthValidationError,
+)
 from niltype import Nil, Nilable
-from revolt import Substitutor, SubstitutorValidator
-from revolt.errors import SubstitutionError, make_substitution_error
 from th import PathHolder
-from valera import ValidationResult
-from valera.errors import LengthValidationError, MaxLengthValidationError, MinLengthValidationError
 
 from ._unordered_schema import UnorderedSchema
 from ._unordered_validator import UnorderedValidator

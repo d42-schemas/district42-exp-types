@@ -1,6 +1,6 @@
 from typing import Any
 
-from district42.representor import Representor
+from d42.representation import Representor
 
 # register visit_multi_dict
 from district42_exp_types.multi_dict import MultiDictRepresentor  # noqa: F401

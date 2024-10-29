@@ -1,6 +1,6 @@
 from typing import Any
 
-from blahblah import Generator
+from d42.generation import Generator
 from niltype import Nil
 
 from ._numeric_schema import NumericSchema

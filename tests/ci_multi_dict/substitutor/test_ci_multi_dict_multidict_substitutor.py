@@ -3,11 +3,10 @@ from unittest.mock import sentinel
 
 import pytest
 from baby_steps import given, then, when
-from district42 import schema
+from d42 import schema, substitute
+from d42.substitution.errors import SubstitutionError
 from multidict import CIMultiDict, CIMultiDictProxy
 from pytest import raises
-from revolt import substitute
-from revolt.errors import SubstitutionError
 
 from district42_exp_types.ci_multi_dict import schema_ci_multi_dict
 

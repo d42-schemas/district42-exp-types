@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 from baby_steps import given, then, when
-from district42 import represent
+from d42.representation import represent
 
 from district42_exp_types.uuid import schema_uuid
 

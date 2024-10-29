@@ -1,7 +1,7 @@
 from baby_steps import given, then, when
+from d42 import substitute
+from d42.substitution.errors import SubstitutionError
 from pytest import raises
-from revolt import substitute
-from revolt.errors import SubstitutionError
 
 from district42_exp_types.multi_dict import schema_multi_dict
 

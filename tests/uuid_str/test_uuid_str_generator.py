@@ -2,7 +2,7 @@ from uuid import UUID, uuid4
 
 import pytest
 from baby_steps import given, then, when
-from blahblah import fake
+from d42 import fake
 
 from district42_exp_types.uuid_str import schema_uuid_str
 

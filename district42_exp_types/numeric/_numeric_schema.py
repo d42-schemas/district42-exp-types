@@ -1,15 +1,13 @@
 from typing import Any, cast
 
-from district42 import Props, SchemaVisitor
-from district42 import SchemaVisitorReturnType as ReturnType
-from district42.errors import (
-    DeclarationError,
+from d42.declaration import DeclarationError, Props, Schema, SchemaVisitor
+from d42.declaration import SchemaVisitorReturnType as ReturnType
+from d42.declaration.errors import (
     make_already_declared_error,
     make_incorrect_max_error,
     make_incorrect_min_error,
     make_invalid_type_error,
 )
-from district42.types import Schema
 from niltype import Nil, Nilable
 
 __all__ = ("NumericSchema", "NumericProps",)

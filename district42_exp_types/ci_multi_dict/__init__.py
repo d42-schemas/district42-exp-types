@@ -1,4 +1,4 @@
-from district42 import register_type
+from d42.custom_type import register_type
 
 from ._ci_multi_dict_generator import CIMultiDictGenerator
 from ._ci_multi_dict_representor import CIMultiDictRepresentor

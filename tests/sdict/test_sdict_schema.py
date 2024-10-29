@@ -1,5 +1,5 @@
 from baby_steps import then, when
-from district42 import optional, schema
+from d42 import optional, schema
 
 from district42_exp_types.sdict import SDictSchema, schema_sdict
 

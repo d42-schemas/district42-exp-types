@@ -1,9 +1,8 @@
 from typing import Any, Dict, List, Tuple, Union, cast
 
-from district42 import GenericSchema, Props, SchemaVisitor
-from district42 import SchemaVisitorReturnType as ReturnType
-from district42.errors import make_already_declared_error, make_invalid_type_error
-from district42.types import Schema
+from d42.declaration import GenericSchema, Props, Schema, SchemaVisitor
+from d42.declaration import SchemaVisitorReturnType as ReturnType
+from d42.declaration.errors import make_already_declared_error, make_invalid_type_error
 from multidict import CIMultiDict, CIMultiDictProxy
 from niltype import Nil, Nilable
 

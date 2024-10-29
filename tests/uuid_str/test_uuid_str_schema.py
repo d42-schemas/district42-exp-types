@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 from baby_steps import given, then, when
-from district42.errors import DeclarationError
+from d42.declaration import DeclarationError
 from pytest import raises
 
 from district42_exp_types.uuid_str import UUIDStrSchema, schema_uuid_str

@@ -1,6 +1,6 @@
 from typing import Any, Dict
 
-from blahblah import Generator
+from d42.generation import Generator
 
 from ._sdict_schema import SDictSchema
 

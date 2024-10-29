@@ -1,4 +1,4 @@
-from district42 import register_type
+from d42.custom_type import register_type
 
 from ._numeric_generator import NumericGenerator
 from ._numeric_representor import NumericRepresentor

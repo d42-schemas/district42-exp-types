@@ -1,5 +1,6 @@
 from baby_steps import given, then, when
-from district42 import represent, schema
+from d42 import schema
+from d42.representation import represent
 
 from district42_exp_types.sdict import schema_sdict
 

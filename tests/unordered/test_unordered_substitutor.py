@@ -2,8 +2,7 @@ from typing import Any, List
 
 import pytest
 from baby_steps import given, then, when
-from district42 import schema
-from revolt import substitute
+from d42 import schema, substitute
 
 from district42_exp_types.unordered import unordered_schema
 

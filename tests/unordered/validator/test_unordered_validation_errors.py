@@ -1,5 +1,5 @@
 from baby_steps import given, then, when
-from district42 import schema
+from d42 import schema
 from th import PathHolder
 
 from district42_exp_types.unordered import UnorderedContainsValidationError

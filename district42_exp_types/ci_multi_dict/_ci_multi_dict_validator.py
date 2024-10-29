@@ -1,17 +1,17 @@
 from copy import deepcopy
 from typing import Any, List, Mapping
 
-from district42 import GenericSchema
-from multidict import CIMultiDict, CIMultiDictProxy
-from niltype import Nil, Nilable
-from th import PathHolder
-from valera import ValidationResult, Validator
-from valera.errors import (
+from d42.declaration import GenericSchema
+from d42.validation import ValidationResult, Validator
+from d42.validation.errors import (
     ExtraKeyValidationError,
     MissingKeyValidationError,
     TypeValidationError,
     ValidationError,
 )
+from multidict import CIMultiDict, CIMultiDictProxy
+from niltype import Nil, Nilable
+from th import PathHolder
 
 from ._ci_multi_dict_schema import CIMultiDictSchema
 from ._utils import get_unique_keys

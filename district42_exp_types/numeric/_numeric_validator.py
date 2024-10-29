@@ -1,9 +1,9 @@
 from typing import Any
 
+from d42.validation import ValidationResult, Validator
+from d42.validation.errors import MaxValueValidationError, MinValueValidationError
 from niltype import Nil, Nilable
 from th import PathHolder
-from valera import ValidationResult, Validator
-from valera.errors import MaxValueValidationError, MinValueValidationError
 
 from ._numeric_schema import NumericSchema
 

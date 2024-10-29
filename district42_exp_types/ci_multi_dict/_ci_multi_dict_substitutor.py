@@ -1,14 +1,14 @@
 from copy import deepcopy
 from typing import Any, List
 
-from district42 import GenericSchema
+from d42.declaration import GenericSchema
+from d42.substitution import Substitutor, SubstitutorValidator
+from d42.substitution.errors import SubstitutionError, make_substitution_error
+from d42.validation import ValidationResult
+from d42.validation.errors import ExtraKeyValidationError, ValidationError
 from multidict import CIMultiDict
 from niltype import Nil, Nilable
-from revolt import Substitutor, SubstitutorValidator
-from revolt.errors import SubstitutionError, make_substitution_error
 from th import PathHolder
-from valera import ValidationResult
-from valera.errors import ExtraKeyValidationError, ValidationError
 
 from ._ci_multi_dict_schema import CIMultiDictSchema
 from ._utils import get_unique_keys

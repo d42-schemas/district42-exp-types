@@ -1,7 +1,7 @@
 from typing import Any
 
-from blahblah import Generator
-from district42 import GenericSchema
+from d42.declaration import GenericSchema
+from d42.generation import Generator
 from multidict import CIMultiDict
 
 # register visit_multi_dict

@@ -3,9 +3,9 @@ from unittest.mock import Mock, call
 
 import pytest
 from baby_steps import given, then, when
-from blahblah import Generator, Random, RegexGenerator
-from blahblah._consts import LIST_LEN_MAX, LIST_LEN_MIN
-from district42.types import Schema
+from d42.declaration import Schema
+from d42.generation import Generator, Random, RegexGenerator
+from d42.generation._consts import LIST_LEN_MAX, LIST_LEN_MIN
 
 from district42_exp_types.unordered import unordered_schema
 

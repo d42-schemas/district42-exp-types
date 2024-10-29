@@ -1,8 +1,8 @@
 from typing import Any
 
+from d42.substitution import Substitutor
+from d42.substitution.errors import make_substitution_error
 from niltype import Nil
-from revolt import Substitutor
-from revolt.errors import make_substitution_error
 
 from ._uuid_schema import UUIDSchema
 

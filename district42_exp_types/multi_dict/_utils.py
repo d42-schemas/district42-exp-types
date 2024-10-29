@@ -1,6 +1,6 @@
 from typing import Generator
 
-from district42 import GenericSchema
+from d42.declaration import GenericSchema
 from multidict import MultiDict
 
 __all__ = ("get_unique_keys",)

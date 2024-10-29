@@ -1,9 +1,9 @@
 from typing import Any
 from uuid import UUID
 
+from d42.validation import ValidationResult, Validator
 from niltype import Nil, Nilable
 from th import PathHolder
-from valera import ValidationResult, Validator
 
 from ._uuid_schema import UUIDSchema
 

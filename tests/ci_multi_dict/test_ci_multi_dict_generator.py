@@ -1,6 +1,6 @@
 from baby_steps import given, then, when
-from blahblah import generate
-from district42 import schema
+from d42 import schema
+from d42.generation import generate
 from multidict import CIMultiDict
 
 from district42_exp_types.ci_multi_dict import schema_ci_multi_dict

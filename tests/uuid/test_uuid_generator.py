@@ -1,7 +1,7 @@
 from uuid import UUID, uuid4
 
 from baby_steps import given, then, when
-from blahblah import fake
+from d42 import fake
 
 from district42_exp_types.uuid import schema_uuid
 
