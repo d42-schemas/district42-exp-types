@@ -1,7 +1,11 @@
 from typing import Any
 
 from d42.validation import ValidationResult, Validator
-from d42.validation.errors import MaxValueValidationError, MinValueValidationError
+from d42.validation.errors import (
+    MaxValueValidationError,
+    MinValueValidationError,
+    TypeValidationError,
+)
 from niltype import Nil, Nilable
 from th import PathHolder
 
@@ -19,6 +23,12 @@ class NumericValidator(Validator, extend=True):
             path = self._path_holder_factory()
 
         if error := self._validate_type(path, value, str):
+            return result.add_error(error)
+
+        try:
+            int(value)
+        except ValueError:
+            error = TypeValidationError(path, value, "numeric str")  # type: ignore
             return result.add_error(error)
 
         if schema.props.value is not Nil:
