@@ -61,14 +61,28 @@ class UnorderedValidator(Validator, extend=True):
                                      path: PathHolder,
                                      values: List[Any],
                                      elements: List[GenericSchema],
-                                     **kwargs: Any) -> Dict[int, int]:
+                                     **kwargs: Any) -> tuple:
         validated: List[List[int]] = [list() for _ in elements]
+        absent_errors: Dict[int, List[ValidationError]] = {}
+
         for i, element in enumerate(elements):
             for j, value in enumerate(values):
                 result = element.__accept__(self, value=value, path=path, **kwargs)
+
+                # Собираем absent errors
+                errors = [e for e in result.get_errors()
+                          if e.__class__.__name__ == 'UnexpectedKeyValidationError']
+                if errors:
+                    if j not in absent_errors:
+                        absent_errors[j] = []
+                    absent_errors[j].extend(errors)
+
+                # Проверяем на matches
                 if not result.has_errors():
                     validated[i].append(j)
-        return self._find_matches(validated, {})
+
+        matches = self._find_matches(validated, {})
+        return matches, absent_errors
 
     def _validate_elements_missing(self, path: PathHolder, elements: List[GenericSchema],
                                    matches: Dict[int, int]) -> List[ValidationError]:
@@ -117,38 +131,47 @@ class UnorderedValidator(Validator, extend=True):
         # body
         if (len(elements) > 2) and is_ellipsis(elements[0]) and is_ellipsis(elements[-1]):
             elements = elements[1:-1]
-            matches = self._validate_unordered_elements(path, value, elements, **kwargs)
+            matches, absent_errors = self._validate_unordered_elements(path, value, elements, **kwargs)
             errors = self._validate_elements_missing(path, elements, matches)
             return result.add_errors(errors)
 
         # head
         if (len(elements) >= 2) and is_ellipsis(elements[-1]):
             elements = elements[:-1]
-            matches = self._validate_unordered_elements(path, value, elements, **kwargs)
+            matches, absent_errors = self._validate_unordered_elements(path, value, elements, **kwargs)
             errors = self._validate_elements_missing(path, elements, matches)
             end = min(len(value), len(elements))
             for index in range(0, end):
                 if index not in matches:
-                    result.add_error(ExtraElementValidationError(path, value[index], index))
+                    if index in absent_errors:
+                        result.add_errors(absent_errors[index])
+                    else:
+                        result.add_error(ExtraElementValidationError(path, value[index], index))
             return result.add_errors(errors)
 
         # tail
         if (len(elements) >= 1) and is_ellipsis(elements[0]):
             elements = elements[1:]
-            matches = self._validate_unordered_elements(path, value, elements, **kwargs)
+            matches, absent_errors = self._validate_unordered_elements(path, value, elements, **kwargs)
             start = max(0, len(value) - len(matches))
             for index in range(start, len(value)):
                 if index not in matches:
-                    result.add_error(ExtraElementValidationError(path, value[index], index))
+                    if index in absent_errors:
+                        result.add_errors(absent_errors[index])
+                    else:
+                        result.add_error(ExtraElementValidationError(path, value[index], index))
             errors = self._validate_elements_missing(path, elements, matches)
             return result.add_errors(errors)
 
-        matches = self._validate_unordered_elements(path, value, elements, **kwargs)
+        matches, absent_errors = self._validate_unordered_elements(path, value, elements, **kwargs)
         errors = self._validate_elements_missing(path, elements, matches)
         result.add_errors(errors)
 
         for index, val in enumerate(value):
             if index not in matches:
-                result.add_error(ExtraElementValidationError(path, val, index))
+                if index in absent_errors:
+                    result.add_errors(absent_errors[index])
+                else:
+                    result.add_error(ExtraElementValidationError(path, val, index))
 
         return result
